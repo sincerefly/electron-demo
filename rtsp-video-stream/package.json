@@ -1,0 +1,17 @@
+{
+  "name": "rtsp-demo",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "dongdong",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "~1.8.2"
+  },
+  "dependencies": {
+    "node-rtsp-stream": "^0.0.3"
+  }
+}
