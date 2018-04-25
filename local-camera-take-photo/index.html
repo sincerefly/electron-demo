@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Local Camera Take Photo</title>
+    <style>
+      #video {
+        width: 320px;
+        height: 240px;
+        border: 2px solid #1b7dda;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <video id="video" width="320" height="240"></video>
+      <button id='tack'>take photo</button>
+      <canvas id='canvas' width='320' height='240'></canvas>
+      <img id='img' src=''>
+    </div>
+
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+
+      /* 如果摄像头被其它程序占用，会调用失败触发TrackStartError错误 */
+      
+      var video = document.getElementById('video'),
+        canvas = document.getElementById('canvas'),
+        snap = document.getElementById('tack'),
+        img = document.getElementById('img'),
+        vendorUrl = window.URL || window.webkitURL;
+        
+      // 媒体对象
+      navigator.getMedia = navigator.getUserMedia ||
+                          navagator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia;
+      navigator.getMedia({
+        video: true,  // 使用摄像头对象
+        audio: false  // 不使用音频
+      }, function(strem){
+        console.log(strem);
+        video.src = vendorUrl.createObjectURL(strem);
+        video.play();
+      }, function(error) {
+        console.log(error);
+      });
+      snap.addEventListener('click', function(){
+      
+        // 绘制canvas图形
+        canvas.getContext('2d').drawImage(video, 0, 0, 400, 300);
+        
+        // 把canvas图像转为img图片
+        img.src = canvas.toDataURL("image/png");
+          
+      })
+    </script>
+  </body>
+</html>
