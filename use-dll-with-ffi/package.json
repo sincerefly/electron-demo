@@ -1,0 +1,16 @@
+{
+  "name": "electron-ffi-demo",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "rebuild-ffi": "cd ./node_modules/ffi/ && node-gyp rebuild --target=1.8.2 --arch=ia32 --dist-url=https://atom.io/download/electron && cd ../ref && node-gyp rebuild --target=1.8.2 --arch=ia32 --dist-url=https://atom.io/download/electron "
+  },
+  "devDependencies": {
+    "electron": "1.8.2"
+  },
+  "dependencies": {
+    "ffi": "^2.2.0"
+  }
+}
