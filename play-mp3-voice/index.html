@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Play Voice</title>
+    <style>
+      .content {
+        display: flex;
+        justify-content: space-around;
+        padding-top: 30px;
+      }
+    </style> 
+  </head>
+  <body>
+    <div class="content">
+      <button onclick="audio_play()">Play Mp3 with HTML5</button>
+      <button onclick="nodejs_play()">Play Mp3 with Node.js</button>
+      <audio id="cameraVoice">
+          <source = src="camera.mp3" type="audio/mp3">
+      </audio>
+    </div>
+    <br />
+    
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+      function audio_play() {
+        var audio = document.getElementById("cameraVoice");
+        audio.play();
+      }
+      const {ipcRenderer} = require('electron');
+      function nodejs_play() {
+        ipcRenderer.send('play-voice', "_");
+      }
+    </script>
+  </body>
+</html>
+
+
+
