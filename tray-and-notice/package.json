@@ -1,0 +1,26 @@
+{
+  "name": "tray-and-notice",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --ia32"
+  },
+  "author": "dongdong",
+  "build": {
+    "productName": "tray-and-notice",
+    "compression": "normal",
+    "electronVersion": "1.8.2",
+    "directories": {
+      "output": "./elect_builder_output"
+    },
+    "win": {
+      "target": ["portable"],
+      "icon": "leaf.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "~1.8.2"
+  }
+}

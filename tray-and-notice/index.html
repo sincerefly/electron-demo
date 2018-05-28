@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <style>
+      body { margin: 0px; padding: 0px; }
+      section { margin: 30px 30px; }
+      button { margin-right: 20px; }
+    </style>
+  </head>
+  <body style="-webkit-app-region: drag">
+    <section style="-webkit-app-region: drag">
+        <h1>托盘与系统通知</h1>
+    </section>
+
+    <section style="-webkit-app-region: no-drag">
+        <button type="button" id="maxbt">最大化</button>
+        <button type="button" id="minbt">最小化</button>
+        <button type="button" id="closebt">退出</button>
+        <button type="button" id="put-in-tray">托盘化</button>
+        <br><br>
+        <button type="button" id="flashing">消息闪动</button>
+        <button type="button" id="notice">发送系统消息</button>
+    </section>
+
+    <script>
+
+      require('./renderer.js')
+
+      var ipc = require('electron').ipcRenderer;
+      document.getElementById('maxbt').addEventListener('click', () => {
+        ipc.send('window-max');
+      });
+
+      document.getElementById('minbt').addEventListener('click', () => {
+        ipc.send('window-min');
+      });
+
+      document.getElementById('closebt').addEventListener('click', () => {
+        ipc.send('window-close');
+      });
+
+      document.getElementById('put-in-tray').addEventListener('click', () => {
+        ipc.send('put-in-tray');
+      });
+
+      let flag = false;
+      document.getElementById('flashing').addEventListener('click', () => {
+        flag = !flag;
+        if (flag) {
+          ipc.send('start-flashing');
+          document.getElementById('flashing').innerHTML = "停止闪动"
+        } else {
+          ipc.send('stop-flashing');
+          document.getElementById('flashing').innerHTML = "消息闪动"
+        }
+      });
+
+      document.getElementById('notice').addEventListener('click', () => {
+        let myNotification = new Notification('测试标题', {
+          title: '消息推送',
+          body: 'Electron允许开发人员使用HTML5 Notification API快速发送通知,并通过当前系统的自带通知API来显示。',
+          icon: 'leaf.ico'
+        })
+        myNotification.onclick = () => {
+          console.log('通知已被点击')
+        }
+      });
+
+    </script>
+  </body>
+</html>
